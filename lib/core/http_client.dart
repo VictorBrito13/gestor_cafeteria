@@ -74,14 +74,21 @@ class ApiClient {
   }
 
   dynamic _decode(String body) {
-    return jsonDecode(body);
+    if (body.isEmpty) {
+      return null;
+    }
+    try {
+      return jsonDecode(body);
+    } catch (_) {
+      return body;
+    }
   }
 
   String _detail(dynamic decoded) {
     if (decoded is Map && decoded['detail'] is String) {
       return decoded['detail'] as String;
     }
-    return decoded.toString();
+    return decoded?.toString() ?? '';
   }
 
   Map<String, String> _fields(dynamic decoded) {
