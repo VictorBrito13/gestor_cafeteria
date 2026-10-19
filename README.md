@@ -12,18 +12,20 @@ Proyecto escolar — Desarrollo Móvil Integral, 10.º A, Septiembre–Diciembre
 
 ## mini_backend
 
-- Repositorio: <!-- TODO: pega aquí el enlace del repositorio de mini_backend que te dio el docente, ej. https://github.com/.../mini_backend -->
-- Versión probada: <!-- TODO: ej. commitabc1234 o tag vX.Y.Z, fecha -->
+- Repositorio: https://github.com/DMI-2026/mini_backend
+- Versión probada: `0.1.0`, commit `118adde` (“refactor: migrate backend from Python to dependency-free Node.js”).
 - `mini_backend` es otro repositorio: no se copia dentro de este proyecto Flutter, solo se referencia aquí.
 
 ### Levantar el servidor
 
 ```bash
 # En la carpeta de mini_backend (repositorio aparte)
-npm install
-npm start
-# o: node server.js  (ajusta según el README de mini_backend)
-# Por defecto escucha en http://localhost:3000
+# Requiere Node.js 22.13 o superior. No necesita npm install.
+node server.js   # http://127.0.0.1:8000
+node --test      # pruebas del backend
+
+# Variables opcionales: PORT (8000), HOST (0.0.0.0), DB_PATH (app.db)
+# PORT=8001 node server.js
 ```
 
 ## Cómo ejecutar la app
@@ -34,10 +36,10 @@ La URL del backend se inyecta con `--dart-define=API_URL`:
 flutter pub get
 
 # Emulador Android (10.0.2.2 apunta al localhost de tu PC)
-flutter run --dart-define=API_URL=http://10.0.2.2:3000
+flutter run --dart-define=API_URL=http://10.0.2.2:8000
 
 # Chrome / escritorio contra localhost
-flutter run -d chrome --dart-define=API_URL=http://localhost:3000
+flutter run -d chrome --dart-define=API_URL=http://localhost:8000
 ```
 
 > `ApiClient(baseUrl: ...)` usa esa `API_URL`. Sin `API_URL` las rutas se resuelven como relativas.
