@@ -67,7 +67,7 @@ class ApiClient {
     if (status >= 500) {
       throw ServerFailure(status);
     }
-    if (status >= 200 && status <= 300) {
+    if (status >= 200 && status < 300) {
       return decoded;
     }
     throw UnexpectedFailure(status, _detail(decoded));
