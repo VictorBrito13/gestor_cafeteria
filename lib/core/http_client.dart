@@ -67,21 +67,28 @@ class ApiClient {
     if (status >= 500) {
       throw ServerFailure(status);
     }
-    if (status >= 200 && status <= 300) {
+    if (status >= 200 && status < 300) {
       return decoded;
     }
     throw UnexpectedFailure(status, _detail(decoded));
   }
 
   dynamic _decode(String body) {
-    return jsonDecode(body);
+    if (body.isEmpty) {
+      return null;
+    }
+    try {
+      return jsonDecode(body);
+    } catch (_) {
+      return body;
+    }
   }
 
   String _detail(dynamic decoded) {
     if (decoded is Map && decoded['detail'] is String) {
       return decoded['detail'] as String;
     }
-    return decoded.toString();
+    return decoded?.toString() ?? '';
   }
 
   Map<String, String> _fields(dynamic decoded) {
